@@ -1,0 +1,10 @@
+.App {
+  max-width: 1000px;
+  margin: auto;
+  color: #4d4d4d;
+  background-color: #e2e2e2;
+}
+
+.App-link {
+  color: #61dafb;
+}
