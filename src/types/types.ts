@@ -1,5 +1,5 @@
 export interface ToDo {
   value: string;
-  isComplite: boolean;
+  isComplited: boolean;
   isEdit: boolean;
 }

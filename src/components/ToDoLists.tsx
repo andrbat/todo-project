@@ -12,7 +12,7 @@ function ToDoLists({ todolists }: ToDoListsProps) {
         return (
           <>
             <li key={i}>
-              <input type="checkbox" checked={item.isComplite} value={i} />
+              <input type="checkbox" checked={item.isComplited} value={i} />
               {item.value}
             </li>
           </>

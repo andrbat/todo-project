@@ -13,7 +13,7 @@ function App() {
       if (newToDo) {
         setState((oldState) => [
           ...oldState,
-          { value: newToDo, isComplite: false, isEdit: false },
+          { value: newToDo, isComplited: false, isEdit: false },
         ]);
       }
     }
