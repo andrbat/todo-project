@@ -5,6 +5,22 @@
   background-color: #e2e2e2;
 }
 
-.App-link {
-  color: #61dafb;
+.App_checked {
+  text-decoration: line-through;
+}
+
+.App-button {
+  opacity: 0;
+  transition: 0.5s opacity;
+}
+
+.App-li:hover .App-button {
+  opacity: 1;
+  transition: 0.5s opacity;
+}
+
+.App-span1 {
+  padding-right: 5px;
+  font-size: 1.25rem;
+  font-weight: 700;
 }

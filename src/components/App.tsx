@@ -1,20 +1,57 @@
 import React from "react";
 import { ToDo } from "../types/types";
 import "./App.css";
+import FilterToDo from "./FilterToDo";
 import ToDoLists from "./ToDoLists";
 
 function App() {
   const [todolists, setState] = React.useState<ToDo[]>([]);
   const [newToDo, setNewToDo] = React.useState("");
-  const [allCompl, setAllCompl] = React.useState(false);
+  const [filter, setFilter] = React.useState("1");
+  const [id, setId] = React.useState(1);
+
+  const itemLeft = todolists.filter((el) => el.isComplited === false).length;
+
+  function handleChangeFilter(e: React.ChangeEvent<HTMLInputElement>) {
+    setFilter(e.target.value);
+  }
+
+  function handleDelToDo(e: any) {
+    const { target } = e;
+    setState((oldState) => {
+      return oldState.filter((el) => {
+        return el.id !== Number(target.value);
+      });
+    });
+  }
+
+  function handleSetCompl(e: React.ChangeEvent<HTMLInputElement>) {
+    const { target } = e;
+    setState((oldState) => {
+      const newState = [...oldState];
+      newState.forEach((el) => (el.isComplited = Boolean(target.checked)));
+      return newState;
+    });
+  }
+
+  function handleCheckComp(e: React.ChangeEvent<HTMLInputElement>) {
+    const { target } = e;
+    setState((oldState) => {
+      const newState = [...oldState];
+      const idx = newState.findIndex((el) => el.id === Number(target.value));
+      newState[idx].isComplited = Boolean(target.checked);
+      return newState;
+    });
+  }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {
       if (newToDo) {
         setState((oldState) => [
           ...oldState,
-          { value: newToDo, isComplited: false, isEdit: false },
+          { id: id, value: newToDo, isComplited: false, isEdit: false },
         ]);
+        setId(id + 1);
       }
     }
   }
@@ -26,8 +63,8 @@ function App() {
         <input
           name="isGoing"
           type="checkbox"
-          checked={allCompl}
-          onChange={(e) => setAllCompl(Boolean(e.target.checked))}
+          checked={itemLeft === 0 && todolists.length !== 0}
+          onChange={handleSetCompl}
         />
         <input
           type="text"
@@ -35,7 +72,17 @@ function App() {
           onChange={(e) => setNewToDo(e.target.value)}
         />
       </header>
-      <ToDoLists todolists={todolists} />
+      <ToDoLists
+        todolists={todolists}
+        filter={filter}
+        onChange={handleCheckComp}
+        onDel={handleDelToDo}
+      />
+      <section>
+        <span className="App-span1">{itemLeft}</span>
+        <span>items left</span>
+        <FilterToDo filter={filter} onChange={handleChangeFilter} />
+      </section>
     </div>
   );
 }
