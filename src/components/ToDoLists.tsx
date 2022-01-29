@@ -4,7 +4,11 @@ import { ToDo } from "../types/types";
 interface ToDoListsProps {
   todolists: ToDo[];
   filter: string;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onChange: (
+    idTd: number,
+    fieldCH: "isComplited" | "isComplited" | "isEdit",
+    newval: string
+  ) => void;
   onDel: React.MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -20,7 +24,6 @@ function ToDoLists(props: ToDoListsProps) {
       case "3":
         return el.isComplited === true;
     }
-    return false;
   }
 
   return (
@@ -35,13 +38,39 @@ function ToDoLists(props: ToDoListsProps) {
               <input
                 type="checkbox"
                 checked={item.isComplited}
-                onChange={props.onChange}
+                onChange={(e) =>
+                  props.onChange(
+                    Number(e.target.value),
+                    "isComplited",
+                    String(e.target.checked)
+                  )
+                }
                 value={item.id}
               />
-              {item.value}
+              {/* <input
+                className="App-todolist"
+                type="text"
+                readOnly={true}
+                value={item.value}
+                onDoubleClick={(e: any) => {
+                  e.target.readOnly = false;
+                }}
+                onBlur={(e: any) => (e.target.readOnly = true)}
+                onChange={(e) => {
+                  setTD(e.target.value);
+                  e.target.value = newTD;
+                }}
+              /> */}
+              <span
+                onDoubleClick={(e) => {
+                  console.log("111");
+                }}
+              >
+                {item.value}
+              </span>
               <button
                 className="App-button"
-                value={item.id}
+                data-todoid={item.id}
                 onClick={props.onDel}
               >
                 Del

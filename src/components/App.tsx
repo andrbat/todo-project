@@ -20,7 +20,7 @@ function App() {
     const { target } = e;
     setState((oldState) => {
       return oldState.filter((el) => {
-        return el.id !== Number(target.value);
+        return el.id !== Number(target.dataset.todoid);
       });
     });
   }
@@ -34,12 +34,16 @@ function App() {
     });
   }
 
-  function handleCheckComp(e: React.ChangeEvent<HTMLInputElement>) {
-    const { target } = e;
+  function handleCheckComp(
+    idTd: number,
+    fieldCH: "isComplited" | "isComplited" | "isEdit",
+    newval: string
+  ) {
+    console.log(idTd, fieldCH, newval === "true");
     setState((oldState) => {
       const newState = [...oldState];
-      const idx = newState.findIndex((el) => el.id === Number(target.value));
-      newState[idx].isComplited = Boolean(target.checked);
+      const idx = newState.findIndex((el) => el.id === idTd);
+      newState[idx][fieldCH] = newval === "true";
       return newState;
     });
   }
@@ -63,7 +67,8 @@ function App() {
         <input
           name="isGoing"
           type="checkbox"
-          checked={itemLeft === 0 && todolists.length !== 0}
+          disabled={todolists.length === 0}
+          checked={itemLeft === 0}
           onChange={handleSetCompl}
         />
         <input

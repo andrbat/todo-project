@@ -5,6 +5,10 @@
   background-color: #e2e2e2;
 }
 
+.App li {
+  list-style-type: none;
+}
+
 .App_checked {
   text-decoration: line-through;
 }
@@ -23,4 +27,18 @@
   padding-right: 5px;
   font-size: 1.25rem;
   font-weight: 700;
+}
+
+.App-todolist {
+  border: 1px solid #e2e2e2;
+  border-radius: 0.25rem;
+  background-color: initial;
+  font-family: inherit;
+}
+
+.App-todolist:focus {
+  outline: 0;
+}
+.App-filter:checked + label {
+  background-color: red;
 }
