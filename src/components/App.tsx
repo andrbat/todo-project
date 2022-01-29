@@ -34,16 +34,24 @@ function App() {
     });
   }
 
-  function handleCheckComp(
+  function handleChange(
     idTd: number,
-    fieldCH: "isComplited" | "isComplited" | "isEdit",
+    fieldCH: "isComplited" | "value",
     newval: string
   ) {
-    console.log(idTd, fieldCH, newval === "true");
     setState((oldState) => {
       const newState = [...oldState];
       const idx = newState.findIndex((el) => el.id === idTd);
-      newState[idx][fieldCH] = newval === "true";
+
+      switch (fieldCH) {
+        case "isComplited":
+          newState[idx][fieldCH] = newval === "true";
+          break;
+        case "value":
+          newState[idx][fieldCH] = newval;
+          break;
+      }
+
       return newState;
     });
   }
@@ -53,7 +61,7 @@ function App() {
       if (newToDo) {
         setState((oldState) => [
           ...oldState,
-          { id: id, value: newToDo, isComplited: false, isEdit: false },
+          { id: id, value: newToDo, isComplited: false },
         ]);
         setId(id + 1);
       }
@@ -65,7 +73,6 @@ function App() {
       <h1>ToDo list</h1>
       <header>
         <input
-          name="isGoing"
           type="checkbox"
           disabled={todolists.length === 0}
           checked={itemLeft === 0}
@@ -80,7 +87,7 @@ function App() {
       <ToDoLists
         todolists={todolists}
         filter={filter}
-        onChange={handleCheckComp}
+        onChange={handleChange}
         onDel={handleDelToDo}
       />
       <section>

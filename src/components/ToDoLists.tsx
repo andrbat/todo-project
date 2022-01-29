@@ -6,7 +6,7 @@ interface ToDoListsProps {
   filter: string;
   onChange: (
     idTd: number,
-    fieldCH: "isComplited" | "isComplited" | "isEdit",
+    fieldCH: "isComplited" | "value",
     newval: string
   ) => void;
   onDel: React.MouseEventHandler<HTMLButtonElement>;
@@ -24,6 +24,17 @@ function ToDoLists(props: ToDoListsProps) {
       case "3":
         return el.isComplited === true;
     }
+  }
+
+  function handleKeyEnter(e: any) {
+    if (e.key === "Enter") {
+      noEdit(e);
+    }
+  }
+
+  function noEdit(e: any) {
+    e.target.readOnly = true;
+    e.target.className = "App-todolist";
   }
 
   return (
@@ -47,27 +58,26 @@ function ToDoLists(props: ToDoListsProps) {
                 }
                 value={item.id}
               />
-              {/* <input
+              <input
                 className="App-todolist"
                 type="text"
                 readOnly={true}
                 value={item.value}
+                data-todoid={item.id}
                 onDoubleClick={(e: any) => {
                   e.target.readOnly = false;
+                  e.target.className = "App-todolist App-todolist_edit";
                 }}
-                onBlur={(e: any) => (e.target.readOnly = true)}
-                onChange={(e) => {
-                  setTD(e.target.value);
-                  e.target.value = newTD;
-                }}
-              /> */}
-              <span
-                onDoubleClick={(e) => {
-                  console.log("111");
-                }}
-              >
-                {item.value}
-              </span>
+                onBlur={noEdit}
+                onChange={(e) =>
+                  props.onChange(
+                    Number(e.target.dataset.todoid),
+                    "value",
+                    e.target.value
+                  )
+                }
+                onKeyDown={handleKeyEnter}
+              />
               <button
                 className="App-button"
                 data-todoid={item.id}

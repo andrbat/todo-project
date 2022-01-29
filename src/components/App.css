@@ -34,11 +34,17 @@
   border-radius: 0.25rem;
   background-color: initial;
   font-family: inherit;
+  text-decoration: inherit;
 }
 
 .App-todolist:focus {
   outline: 0;
 }
+
+.App-todolist_edit:focus {
+  outline: 1px solid red;
+}
+
 .App-filter:checked + label {
   background-color: red;
 }
