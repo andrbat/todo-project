@@ -47,6 +47,8 @@ function ToDoLists(props: ToDoListsProps) {
               className={item.isComplited ? "App-li App_checked" : "App-li"}
             >
               <input
+                className="App-checkbox"
+                id={"todo" + item.id}
                 type="checkbox"
                 checked={item.isComplited}
                 onChange={(e) =>
@@ -58,6 +60,7 @@ function ToDoLists(props: ToDoListsProps) {
                 }
                 value={item.id}
               />
+              <label htmlFor={"todo" + item.id}></label>
               <input
                 className="App-todolist"
                 type="text"

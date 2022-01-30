@@ -1,25 +1,87 @@
 .App {
-  max-width: 1000px;
+  max-width: 600px;
   margin: auto;
   color: #4d4d4d;
-  background-color: #e2e2e2;
+  font-size: 1.5rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
 
+.App header {
+  border-bottom: 2px solid #ededed;
+}
+
+.App-checkbox {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.App-checkbox + label::before {
+  content: "";
+  display: inline-block;
+  width: 1.25em;
+  height: 1.25em;
+  vertical-align: -3px;
+  border: 1px solid #adb5bd;
+  border-radius: 0.25em;
+  margin-right: 0.5em;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 50% 50%;
+}
+
+.App-checkbox:checked + label::before {
+  border-color: #0b76ef;
+  background-color: #0b76ef;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+  background-color: lightblue;
+}
+
+.App-newinput {
+  border: none;
+  outline: 0;
+}
+
+.App ul {
+  padding: 0;
+}
 .App li {
   list-style-type: none;
+  border-bottom: 1px solid #ededed;
+  padding-bottom: 5px;
 }
 
 .App_checked {
   text-decoration: line-through;
 }
 
-.App-button {
-  opacity: 0;
+.App-li:hover .App-button {
+  opacity: 1;
   transition: 0.5s opacity;
 }
 
-.App-li:hover .App-button {
-  opacity: 1;
+.App-todolist {
+  border: none;
+  background-color: initial;
+  font-family: inherit;
+  text-decoration: inherit;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.App-todolist[readonly] {
+  opacity: 0.7;
+}
+
+.App-todolist:focus {
+  outline: 0;
+}
+
+.App-todolist_edit:focus {
+  box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+}
+
+.App-button {
+  opacity: 0;
   transition: 0.5s opacity;
 }
 
@@ -29,22 +91,25 @@
   font-weight: 700;
 }
 
-.App-todolist {
-  border: 1px solid #e2e2e2;
-  border-radius: 0.25rem;
-  background-color: initial;
-  font-family: inherit;
-  text-decoration: inherit;
+.App-span2 {
+  margin-right: 30px;
 }
 
-.App-todolist:focus {
-  outline: 0;
+.App-filter {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
 }
 
-.App-todolist_edit:focus {
-  outline: 1px solid red;
+.App-filter + label {
+  margin-right: 15px;
 }
 
 .App-filter:checked + label {
-  background-color: red;
+  border: 1px solid red;
+  border-radius: 3px;
+}
+
+.App-filter + label:hover {
+  border: 1px solid rgb(250, 126, 126);
 }

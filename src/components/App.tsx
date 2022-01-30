@@ -56,13 +56,14 @@ function App() {
     });
   }
 
-  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+  function handleKeyDown(e: any) {
     if (e.key === "Enter") {
       if (newToDo) {
         setState((oldState) => [
           ...oldState,
           { id: id, value: newToDo, isComplited: false },
         ]);
+        e.target.value = "";
         setId(id + 1);
       }
     }
@@ -73,13 +74,18 @@ function App() {
       <h1>ToDo list</h1>
       <header>
         <input
+          id="all"
+          className="App-checkbox"
           type="checkbox"
           disabled={todolists.length === 0}
-          checked={itemLeft === 0}
+          checked={itemLeft === 0 && todolists.length !== 0}
           onChange={handleSetCompl}
         />
+        <label htmlFor="all"></label>
         <input
+          className="App-newinput"
           type="text"
+          placeholder="What needs to be done?"
           onKeyDown={handleKeyDown}
           onChange={(e) => setNewToDo(e.target.value)}
         />
@@ -92,7 +98,7 @@ function App() {
       />
       <section>
         <span className="App-span1">{itemLeft}</span>
-        <span>items left</span>
+        <span className="App-span2">items left</span>
         <FilterToDo filter={filter} onChange={handleChangeFilter} />
       </section>
     </div>
